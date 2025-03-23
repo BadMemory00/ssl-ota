@@ -37,6 +37,22 @@ services:
     networks:
       - ota-network
 
+  client:
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+    container_name: ota-client
+    hostname: ota-client
+    ports:
+      - "8080:8080"
+    environment:
+      - MQTT_BROKER_URL=tcp://mqtt-broker:1883
+    restart: unless-stopped
+    depends_on:
+      - mqtt-broker
+    networks:
+      - ota-network
+
 networks:
   ota-network:
     driver: bridge

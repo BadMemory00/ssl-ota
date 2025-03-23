@@ -11,11 +11,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import java.security.cert.X509Certificate;
 import java.util.List;
 
 @Configuration
@@ -30,7 +25,7 @@ public class SecurityConfig {
                 .cors(r -> r.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .x509(r -> {
                 })
