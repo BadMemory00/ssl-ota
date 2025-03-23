@@ -3,58 +3,98 @@ set -e
 
 CERTS_DIR="/mosquitto/certs"
 KEYSTORE_PASSWORD="changeit"
+MOSQUITTO_USER=1883  # This is typically the user ID for Mosquitto
 
-# Extract CA certificate
-openssl pkcs12 \
-  -in "${CERTS_DIR}/truststore.p12" \
-  -nokeys \
-  -out "${CERTS_DIR}/ca.pem.tmp" \
-  -passin pass:"${KEYSTORE_PASSWORD}" \
-  -nodes
+echo "Starting certificate extraction..."
+echo "Listing certificate directory contents before extraction:"
+ls -la ${CERTS_DIR}
 
-# Clean up the CA certificate (remove Bag Attributes)
-cat "${CERTS_DIR}/ca.pem.tmp" | grep -v "Bag Attributes" | grep -v "friendlyName" > "${CERTS_DIR}/ca.pem"
-rm "${CERTS_DIR}/ca.pem.tmp"
+# Verify PKCS12 files exist
+if [ ! -f "${CERTS_DIR}/truststore.p12" ]; then
+    echo "ERROR: truststore.p12 file not found!"
+    exit 1
+fi
 
-echo "CA certificate extracted successfully"
+if [ ! -f "${CERTS_DIR}/server.p12" ]; then
+    echo "ERROR: server.p12 file not found!"
+    exit 1
+fi
+
+# Get information about the truststore contents
+echo "Inspecting truststore.p12 contents:"
+keytool -list -keystore "${CERTS_DIR}/truststore.p12" -storepass "${KEYSTORE_PASSWORD}" -storetype PKCS12 || echo "Could not list truststore contents"
+
+# First, try to export the root CA certificate using keytool
+echo "Extracting CA certificate from truststore using keytool..."
+if keytool -exportcert -keystore "${CERTS_DIR}/truststore.p12" -storepass "${KEYSTORE_PASSWORD}" \
+  -alias "root-ca" -file "${CERTS_DIR}/ca.pem" -rfc; then
+    echo "CA certificate extracted successfully using keytool"
+else
+    echo "Keytool export failed, falling back to OpenSSL..."
+    # Extract CA certificate with legacy option for older OpenSSL
+    openssl pkcs12 \
+      -in "${CERTS_DIR}/truststore.p12" \
+      -out "${CERTS_DIR}/ca.pem" \
+      -nokeys \
+      -nodes \
+      -passin pass:"${KEYSTORE_PASSWORD}" \
+      -legacy
+fi
+
+# Verify the extracted certificate
+echo "Verifying CA certificate:"
+openssl x509 -in "${CERTS_DIR}/ca.pem" -text -noout | head -n 15 || echo "Could not verify extracted CA certificate"
 
 # Extract server certificate
+echo "Extracting server certificate..."
 openssl pkcs12 \
   -in "${CERTS_DIR}/server.p12" \
-  -nokeys \
-  -out "${CERTS_DIR}/server.crt.tmp" \
+  -clcerts -nokeys \
+  -out "${CERTS_DIR}/server.crt" \
   -passin pass:"${KEYSTORE_PASSWORD}" \
-  -nodes
+  -legacy
 
-# Clean up the server certificate
-cat "${CERTS_DIR}/server.crt.tmp" | grep -v "Bag Attributes" | grep -v "friendlyName" > "${CERTS_DIR}/server.crt"
-rm "${CERTS_DIR}/server.crt.tmp"
-
-echo "Server certificate extracted successfully"
+# Verify the extracted server certificate
+echo "Verifying server certificate:"
+openssl x509 -in "${CERTS_DIR}/server.crt" -text -noout | head -n 15 || echo "Could not verify extracted server certificate"
+echo "Checking for Subject Alternative Names:"
+openssl x509 -in "${CERTS_DIR}/server.crt" -text -noout | grep -A1 "Subject Alternative Name" || echo "No SANs found"
 
 # Extract server private key
+echo "Extracting server private key..."
 openssl pkcs12 \
   -in "${CERTS_DIR}/server.p12" \
-  -nocerts \
-  -out "${CERTS_DIR}/server.key.tmp" \
+  -nocerts -nodes \
+  -out "${CERTS_DIR}/server.key" \
   -passin pass:"${KEYSTORE_PASSWORD}" \
-  -nodes
+  -legacy
 
-# Clean up the server key
-cat "${CERTS_DIR}/server.key.tmp" | grep -v "Bag Attributes" | grep -v "friendlyName" > "${CERTS_DIR}/server.key"
-rm "${CERTS_DIR}/server.key.tmp"
+# Verify the extracted server key (just check if it's RSA)
+echo "Verifying server key format:"
+openssl rsa -in "${CERTS_DIR}/server.key" -check -noout || echo "Could not verify server key format"
+
+# Fix permissions for all certificate files
+chmod 644 "${CERTS_DIR}/ca.pem"
+chmod 644 "${CERTS_DIR}/server.crt"
 chmod 600 "${CERTS_DIR}/server.key"
 
-echo "Server private key extracted successfully"
+# Fix ownership for all files to be readable by Mosquitto
+if [ -n "$MOSQUITTO_USER" ]; then
+    chown ${MOSQUITTO_USER}:${MOSQUITTO_USER} "${CERTS_DIR}/ca.pem" || echo "Could not change ownership of ca.pem"
+    chown ${MOSQUITTO_USER}:${MOSQUITTO_USER} "${CERTS_DIR}/server.crt" || echo "Could not change ownership of server.crt"
+    chown ${MOSQUITTO_USER}:${MOSQUITTO_USER} "${CERTS_DIR}/server.key" || echo "Could not change ownership of server.key"
+fi
 
-# Verify certificates
-openssl verify -CAfile "${CERTS_DIR}/ca.pem" "${CERTS_DIR}/server.crt" || echo "Warning: Certificate verification failed"
+# Create combined PEM file for Mosquitto
+echo "Creating combined PEM file for Mosquitto..."
+cat "${CERTS_DIR}/server.crt" "${CERTS_DIR}/ca.pem" > "${CERTS_DIR}/server_chain.crt"
+chmod 644 "${CERTS_DIR}/server_chain.crt"
+if [ -n "$MOSQUITTO_USER" ]; then
+    chown ${MOSQUITTO_USER}:${MOSQUITTO_USER} "${CERTS_DIR}/server_chain.crt"
+fi
 
-# For debugging - show certificate contents
-echo "CA Certificate Details:"
-openssl x509 -in "${CERTS_DIR}/ca.pem" -text -noout | head -15
+# Verify files exist and have correct permissions
+echo "Final certificate directory contents:"
+ls -la ${CERTS_DIR}
 
-echo "Server Certificate Details:"
-openssl x509 -in "${CERTS_DIR}/server.crt" -text -noout | head -15
-
-echo "Certificates extracted successfully"
+echo "Certificates extracted and prepared successfully"

@@ -15,23 +15,33 @@ services:
     networks:
       - ota-network
 
-  # Certificate extractor
+  # Extract certs for Mosquitto
   cert-extractor:
     image: alpine:latest
     container_name: cert-extractor
     volumes:
       - ./certs:/mosquitto/certs
       - ./extract-certs.sh:/extract-certs.sh
-    command: sh -c "apk add --no-cache openssl && sh /extract-certs.sh && ls -la /mosquitto/certs"
+    command: >
+      sh -c "apk add --no-cache openssl openjdk17-jre &&
+             echo 'Waiting for certificate files to be generated...' &&
+             while [ ! -f /mosquitto/certs/truststore.p12 ] || [ ! -f /mosquitto/certs/server.p12 ] || [ ! -f /mosquitto/certs/client.p12 ]; do
+               echo 'Certificate files not ready, waiting...'
+               sleep 3
+             done &&
+             echo 'Certificate files found, proceeding with extraction...' &&
+             sh /extract-certs.sh"
     depends_on:
-      - cert-initializer
+      cert-initializer:
+        condition: service_completed_successfully
     networks:
       - ota-network
 
-  # MQTT Broker
+  # MQTT Broker with improved wait condition
   mqtt-broker:
     image: eclipse-mosquitto:2.0.15
     container_name: mqtt-broker
+    hostname: mqtt-broker
     ports:
       - "1883:1883"
       - "8883:8883"
@@ -41,18 +51,27 @@ services:
       - ./mosquitto/log:/mosquitto/log
       - ./certs:/mosquitto/certs
     restart: unless-stopped
+    command: >
+      sh -c "echo 'Waiting for certificate PEM files...' &&
+             until [ -f /mosquitto/certs/ca.pem ] && [ -f /mosquitto/certs/server.crt ] && [ -f /mosquitto/certs/server.key ]; do
+               echo 'PEM files not ready, waiting...'
+               sleep 3
+             done &&
+             echo 'PEM files found, checking contents:' &&
+             ls -la /mosquitto/certs &&
+             echo 'Starting Mosquitto broker...' &&
+             mosquitto -c /mosquitto/config/mosquitto.conf -v"
     healthcheck:
       test: ["CMD", "mosquitto_sub", "-t", "$$SYS/#", "-C", "1", "-i", "healthcheck", "-W", "5"]
       interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
+      timeout: 60s
+      retries: 10
+      start_period: 60s
     depends_on:
-      - cert-initializer
-      - cert-extractor
+      cert-extractor:
+        condition: service_completed_successfully
     networks:
       - ota-network
-    command: ["mosquitto", "-c", "/mosquitto/config/mosquitto.conf", "-v"]
 
   # OTA Update Server
   server:
@@ -60,6 +79,7 @@ services:
       context: .
       dockerfile: server/Dockerfile
     container_name: ota-server
+    hostname: ota-server
     ports:
       - "8443:8443"
     volumes:
@@ -71,7 +91,13 @@ services:
       - TRUSTSTORE_PASSWORD=changeit
       - FIRMWARE_PATH=/app/firmware-update.txt
       - MQTT_BROKER_URL=ssl://mqtt-broker:8883
-      - JAVA_TOOL_OPTIONS=-Djavax.net.debug=ssl:handshake
+      - SERVER_SSL_ENABLED=true
+      - SERVER_SSL_CLIENT_AUTH=need
+      - SERVER_SSL_KEY_STORE=/app/certs/server.p12
+      - SERVER_SSL_KEY_STORE_PASSWORD=changeit
+      - SERVER_SSL_TRUST_STORE=/app/certs/truststore.p12
+      - SERVER_SSL_TRUST_STORE_PASSWORD=changeit
+      - JAVA_TOOL_OPTIONS=-Djavax.net.ssl.trustStore=/app/certs/truststore.p12 -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.ssl.trustStoreType=PKCS12
     restart: unless-stopped
     depends_on:
       mqtt-broker:
@@ -85,6 +111,7 @@ services:
       context: .
       dockerfile: client/Dockerfile
     container_name: ota-client
+    hostname: ota-client
     ports:
       - "8080:8080"
     volumes:
@@ -99,7 +126,7 @@ services:
       - CURRENT_VERSION=1.0.0
       - OUTPUT_DIR=/app/firmware-updates
       - MQTT_BROKER_URL=ssl://mqtt-broker:8883
-      - JAVA_TOOL_OPTIONS=-Djavax.net.debug=ssl:handshake
+      - JAVA_TOOL_OPTIONS=-Djavax.net.ssl.trustStore=/app/certs/truststore.p12 -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.ssl.trustStoreType=PKCS12
     restart: unless-stopped
     depends_on:
       mqtt-broker:

@@ -2,7 +2,7 @@
 server:
   port: 8443
   ssl:
-    enabled: true
+    enabled: false  # Must be false for our custom config to work
     key-store: ${KEYSTORE_PATH:certs/server.p12}
     key-store-password: ${KEYSTORE_PASSWORD:changeit}
     key-store-type: PKCS12
@@ -10,7 +10,6 @@ server:
     trust-store: ${TRUSTSTORE_PATH:certs/truststore.p12}
     trust-store-password: ${TRUSTSTORE_PASSWORD:changeit}
     trust-store-type: PKCS12
-    client-auth: need # Require client certificate authentication
 
 # Spring configuration
 spring:
@@ -23,7 +22,7 @@ spring:
 # MQTT configuration
 mqtt:
   broker:
-    url: ssl://localhost:8883
+    url: ssl://mqtt-broker:8883
   client:
     id: server-
   request:

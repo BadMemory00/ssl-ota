@@ -36,7 +36,7 @@ client:
 # MQTT configuration
 mqtt:
   broker:
-    url: ${MQTT_BROKER_URL:ssl://localhost:8883}
+    url: ${MQTT_BROKER_URL:ssl://mqtt-broker:8883}
   client:
     id: client-
   request:

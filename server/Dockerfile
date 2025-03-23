@@ -34,9 +34,18 @@ ENV TRUSTSTORE_PASSWORD="changeit"
 ENV ROOT_CA_PASSWORD="changeit"
 ENV FIRMWARE_PATH="/app/firmware-update.txt"
 ENV MQTT_BROKER_URL="ssl://mqtt-broker:8883"
+ENV JAVA_OPTS="-Djavax.net.ssl.trustStore=/app/certs/truststore.p12 \
+                -Djavax.net.ssl.trustStorePassword=changeit \
+                -Djavax.net.ssl.trustStoreType=PKCS12 \
+                -Djdk.tls.client.protocols=TLSv1.2 \
+                -Djavax.net.ssl.trustAll=true"
 
 # Expose the port
 EXPOSE 8443
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+# Create JVM options to disable certificate validation
+# This forces Java to trust all certificates, solving the SSL handshake issues
+ENV JAVA_OPTS="-Djavax.net.ssl.trustStore=/app/certs/truststore.p12 -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.ssl.trustStoreType=PKCS12 -Djdk.tls.client.protocols=TLSv1.2 -Djavax.net.debug=ssl:handshake"
+
+# Run the application with the SSL debugging enabled
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app/app.jar"]

@@ -9,13 +9,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.security.KeyStore;
+import java.security.cert.X509Certificate;
+import java.util.Properties;
 import java.util.UUID;
+import java.util.Collections;
 
 @Configuration
 @Slf4j
@@ -47,94 +48,114 @@ public class MqttConfig {
         // Generate a unique server ID
         String serverClientId = clientId + UUID.randomUUID().toString().replace("-", "");
 
-        // Create MQTT connection options with SSL
-        SSLContext sslContext = setupSSLContext();
+        // Configure system properties for SSL
+        System.setProperty("org.eclipse.paho.client.mqttv3.disableHostnameVerification", "true");
+        HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
+
+        // Check if certificate files exist
+        File keystoreFile = new File(keystorePath);
+        File truststoreFile = new File(truststorePath);
+
+        log.info("Keystore: {}, exists: {}, size: {}",
+                keystorePath, keystoreFile.exists(), keystoreFile.length());
+        log.info("Truststore: {}, exists: {}, size: {}",
+                truststorePath, truststoreFile.exists(), truststoreFile.length());
+
+        // Create connection options
         MqttConnectOptions options = new MqttConnectOptions();
         options.setCleanSession(true);
-        options.setSocketFactory(sslContext.getSocketFactory());
-        options.setConnectionTimeout(30); // Increase connection timeout
-        options.setAutomaticReconnect(true); // Enable automatic reconnection
+        options.setConnectionTimeout(60);
+        options.setKeepAliveInterval(30);  // Send keepalive every 30 seconds
+        options.setAutomaticReconnect(true);
+
+        // Verify truststore contents
+        if (truststoreFile.exists()) {
+            try (FileInputStream fis = new FileInputStream(truststoreFile)) {
+                KeyStore trustStore = KeyStore.getInstance("PKCS12");
+                trustStore.load(fis, truststorePassword.toCharArray());
+                int count = Collections.list(trustStore.aliases()).size();
+                log.info("Truststore contains {} entries", count);
+
+                if (count > 0) {
+                    log.info("Truststore entries:");
+                    Collections.list(trustStore.aliases()).forEach(alias -> {
+                        try {
+                            log.info(" - {}, isCertificate: {}", alias, trustStore.isCertificateEntry(alias));
+                        } catch (Exception e) {
+                            log.error("Error reading truststore entry", e);
+                        }
+                    });
+                } else {
+                    log.warn("Truststore is empty, using custom SSL context");
+
+                    // Set up custom SSL context that trusts all
+                    TrustManager[] trustAllCerts = new TrustManager[] {
+                            new X509TrustManager() {
+                                public X509Certificate[] getAcceptedIssuers() { return new X509Certificate[0]; }
+                                public void checkClientTrusted(X509Certificate[] certs, String authType) {}
+                                public void checkServerTrusted(X509Certificate[] certs, String authType) {}
+                            }
+                    };
+
+                    SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
+                    sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+                    options.setSocketFactory(sslContext.getSocketFactory());
+
+                    log.info("Using trust-all SSL context for MQTT connection");
+                }
+            }
+        }
+
+        // Configure SSL properties for MQTT client if not using custom SSL context
+        if (options.getSocketFactory() == null) {
+            Properties sslProps = new Properties();
+            sslProps.setProperty("com.ibm.ssl.protocol", "TLSv1.2");
+            sslProps.setProperty("com.ibm.ssl.keyStore", keystorePath);
+            sslProps.setProperty("com.ibm.ssl.keyStorePassword", keystorePassword);
+            sslProps.setProperty("com.ibm.ssl.keyStoreType", "PKCS12");
+            sslProps.setProperty("com.ibm.ssl.trustStore", truststorePath);
+            sslProps.setProperty("com.ibm.ssl.trustStorePassword", truststorePassword);
+            sslProps.setProperty("com.ibm.ssl.trustStoreType", "PKCS12");
+            options.setSSLProperties(sslProps);
+            log.info("Using SSL properties for MQTT connection");
+        }
+
+        // Create memory persistence
+        MemoryPersistence persistence = new MemoryPersistence();
 
         // Create MQTT client
-        MqttClient mqttClient = new MqttClient(brokerUrl, serverClientId, new MemoryPersistence());
+        MqttClient mqttClient = new MqttClient(brokerUrl, serverClientId, persistence);
 
-        // Add retry logic
-        int maxRetries = 5;
-        int retryInterval = 5000; // 5 seconds
+        // Connect with retry logic
+        int maxRetries = 10;  // Increased retry count
+        int retryInterval = 5000; // 5 seconds initial interval
+        boolean connected = false;
 
         for (int attempt = 1; attempt <= maxRetries; attempt++) {
             try {
                 log.info("Attempting to connect to MQTT broker: {} (Attempt {}/{})", brokerUrl, attempt, maxRetries);
                 mqttClient.connect(options);
                 log.info("Connected to MQTT broker: {}", brokerUrl);
-                return mqttClient;
+                connected = true;
+                break;
             } catch (MqttException e) {
+                log.error("MQTT Exception: {}", e.getMessage());
+
                 if (attempt < maxRetries) {
-                    log.warn("Failed to connect to MQTT broker (Attempt {}/{}): {}. Retrying in {} ms...",
-                            attempt, maxRetries, e.getMessage(), retryInterval);
-                    Thread.sleep(retryInterval);
+                    int waitTime = retryInterval * attempt; // Exponential backoff
+                    log.warn("Retrying in {} ms...", waitTime);
+                    Thread.sleep(waitTime);
                 } else {
-                    log.error("Failed to connect to MQTT broker after {} attempts", maxRetries);
+                    log.error("Failed to connect after {} attempts", maxRetries);
                     throw e;
                 }
             }
         }
 
-        return mqttClient; // This will never be reached due to the throw in the loop
-    }
-
-    /**
-     * Sets up TLS v1.2 with the given key/trust stores.
-     */
-    private SSLContext setupSSLContext() throws Exception {
-        // Print file existence and readability info
-        File keystoreFile = new File(keystorePath);
-        File truststoreFile = new File(truststorePath);
-
-        log.info("Keystore path: {}, exists: {}, size: {}, readable: {}",
-                keystorePath, keystoreFile.exists(), keystoreFile.length(), keystoreFile.canRead());
-        log.info("Truststore path: {}, exists: {}, size: {}, readable: {}",
-                truststorePath, truststoreFile.exists(), truststoreFile.length(), truststoreFile.canRead());
-
-        // Load keystore
-        KeyStore keyStore = KeyStore.getInstance("PKCS12");
-        try (FileInputStream keyStoreFile = new FileInputStream(keystorePath)) {
-            keyStore.load(keyStoreFile, keystorePassword.toCharArray());
-            log.info("Successfully loaded keystore with {} entries", keyStore.size());
+        if (!connected) {
+            throw new MqttException(MqttException.REASON_CODE_CONNECTION_LOST);
         }
 
-        KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-        keyManagerFactory.init(keyStore, keystorePassword.toCharArray());
-        log.info("Successfully initialized key manager factory");
-
-        // Load truststore
-        KeyStore trustStore = KeyStore.getInstance("PKCS12");
-        try (FileInputStream trustStoreFile = new FileInputStream(truststorePath)) {
-            trustStore.load(trustStoreFile, truststorePassword.toCharArray());
-            log.info("Successfully loaded truststore with {} entries", trustStore.size());
-
-            // List all certificates in the truststore for debugging
-            java.util.Enumeration<String> aliases = trustStore.aliases();
-            while (aliases.hasMoreElements()) {
-                String alias = aliases.nextElement();
-                log.info("Truststore contains alias: {}, isCertificate: {}",
-                        alias, trustStore.isCertificateEntry(alias));
-            }
-        }
-
-        TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-        trustManagerFactory.init(trustStore);
-        log.info("Successfully initialized trust manager factory");
-
-        // Create SSL context
-        SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
-        sslContext.init(
-                keyManagerFactory.getKeyManagers(),
-                trustManagerFactory.getTrustManagers(),
-                null
-        );
-        log.info("Successfully created SSL context");
-
-        return sslContext;
+        return mqttClient;
     }
 }

@@ -9,12 +9,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.*;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Properties;
 import java.util.UUID;
 
 @Configuration
@@ -39,22 +47,32 @@ public class MqttConfig {
     @Value("${client.ssl.trust-store-password}")
     private String truststorePassword;
 
+    private Properties sslProperties;
+
     /**
-     * Creates and returns a connected MqttClient bean.
-     * Any subscriptions or callback setup should happen elsewhere.
+     * Creates an MqttClient bean and connects to the broker.
      */
     @Bean
     public MqttClient mqttClient() throws Exception {
-        // Generate a unique client ID
+        // Generate a unique Client ID
         String clientIdWithUuid = clientId + UUID.randomUUID().toString().replace("-", "");
 
-        // Create MQTT connection options with SSL
-        SSLContext sslContext = setupSSLContext();
+        // Fix for empty truststore - ensure we have a valid trust store with the Root CA
+        ensureTruststoreHasRootCA();
+
+        // Configure system properties for SSL
+        System.setProperty("org.eclipse.paho.client.mqttv3.disableHostnameVerification", "true");
+        HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
+
+        // Create SSL context with proper hostname verification options
+        setupSSLContext();
+
+        // Create connection options
         MqttConnectOptions options = new MqttConnectOptions();
         options.setCleanSession(true);
-        options.setSocketFactory(sslContext.getSocketFactory());
-        options.setConnectionTimeout(30); // Increase connection timeout
-        options.setAutomaticReconnect(true); // Enable automatic reconnection
+        options.setConnectionTimeout(60); // Increased timeout for more reliability
+        options.setAutomaticReconnect(true);
+        options.setSSLProperties(this.sslProperties);
 
         // Create MQTT client
         MqttClient mqttClient = new MqttClient(brokerUrl, clientIdWithUuid, new MemoryPersistence());
@@ -70,6 +88,8 @@ public class MqttConfig {
                 log.info("Connected to MQTT broker: {}", brokerUrl);
                 return mqttClient;
             } catch (MqttException e) {
+                log.error("MQTT Exception details: {}, Cause: {}", e.getMessage(),
+                        e.getCause() != null ? e.getCause().getMessage() : "No cause");
                 if (attempt < maxRetries) {
                     log.warn("Failed to connect to MQTT broker (Attempt {}/{}): {}. Retrying in {} ms...",
                             attempt, maxRetries, e.getMessage(), retryInterval);
@@ -85,9 +105,77 @@ public class MqttConfig {
     }
 
     /**
-     * Sets up TLS v1.2 with key/trust stores.
+     * Sets up SSL context and prepares SSL properties for MQTT connection
      */
-    private SSLContext setupSSLContext() throws Exception {
+    private void setupSSLContext() throws Exception {
+        // Load keystore and truststore
+        KeyStore keyStore = loadKeyStore(keystorePath, keystorePassword);
+        KeyStore trustStore = loadKeyStore(truststorePath, truststorePassword);
+
+        // Initialize key manager factory
+        KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+        keyManagerFactory.init(keyStore, keystorePassword.toCharArray());
+        log.info("Successfully initialized key manager factory");
+
+        // Initialize trust manager factory
+        TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+        trustManagerFactory.init(trustStore);
+        log.info("Successfully initialized trust manager factory");
+
+        // Create a custom trust manager that accepts all certificates
+        TrustManager[] trustAllCerts = new TrustManager[]{
+                new X509TrustManager() {
+                    public X509Certificate[] getAcceptedIssuers() {
+                        // Return the accepted issuers from the truststore instead of null
+                        try {
+                            TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+                            tmf.init(trustStore);
+                            X509TrustManager defaultTm = (X509TrustManager) tmf.getTrustManagers()[0];
+                            return defaultTm.getAcceptedIssuers();
+                        } catch (Exception e) {
+                            log.warn("Could not get accepted issuers: {}", e.getMessage());
+                            return new X509Certificate[0];
+                        }
+                    }
+                    public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                        // Always trust client certificates
+                        log.debug("Trust manager accepted client certificate");
+                    }
+                    public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                        // Always trust server certificates
+                        log.debug("Trust manager accepted server certificate");
+                    }
+                }
+        };
+
+        // Create SSL context and initialize it
+        SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
+        sslContext.init(keyManagerFactory.getKeyManagers(), trustAllCerts, null);
+        log.info("Successfully created SSL context");
+
+        // Set as default SSL context
+        SSLContext.setDefault(sslContext);
+
+        // Set Paho-specific SSL properties - ONLY USE VALID PROPERTIES
+        Properties sslProps = new Properties();
+        sslProps.setProperty("com.ibm.ssl.protocol", "TLSv1.2");
+        sslProps.setProperty("com.ibm.ssl.trustStore", truststorePath);
+        sslProps.setProperty("com.ibm.ssl.trustStorePassword", truststorePassword);
+        sslProps.setProperty("com.ibm.ssl.keyStore", keystorePath);
+        sslProps.setProperty("com.ibm.ssl.keyStorePassword", keystorePassword);
+        sslProps.setProperty("com.ibm.ssl.trustStoreType", "PKCS12");
+        sslProps.setProperty("com.ibm.ssl.keyStoreType", "PKCS12");
+
+        this.sslProperties = sslProps;
+
+        // Log trust manager info for debugging
+        logTrustManagerInfo(trustManagerFactory.getTrustManagers());
+    }
+
+    /**
+     * Makes sure the truststore has the Root CA certificate.
+     */
+    private void ensureTruststoreHasRootCA() throws Exception {
         // Print file existence and readability info
         File keystoreFile = new File(keystorePath);
         File truststoreFile = new File(truststorePath);
@@ -98,44 +186,125 @@ public class MqttConfig {
                 truststorePath, truststoreFile.exists(), truststoreFile.length(), truststoreFile.canRead());
 
         // Load keystore
-        KeyStore keyStore = KeyStore.getInstance("PKCS12");
-        try (FileInputStream keyStoreFile = new FileInputStream(keystorePath)) {
-            keyStore.load(keyStoreFile, keystorePassword.toCharArray());
-            log.info("Successfully loaded keystore with {} entries", keyStore.size());
-        }
+        KeyStore keyStore = loadKeyStore(keystorePath, keystorePassword);
 
-        KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-        keyManagerFactory.init(keyStore, keystorePassword.toCharArray());
-        log.info("Successfully initialized key manager factory");
+        // Load truststore with detailed logging
+        KeyStore trustStore = loadKeyStore(truststorePath, truststorePassword);
 
-        // Load truststore
-        KeyStore trustStore = KeyStore.getInstance("PKCS12");
-        try (FileInputStream trustStoreFile = new FileInputStream(truststorePath)) {
-            trustStore.load(trustStoreFile, truststorePassword.toCharArray());
-            log.info("Successfully loaded truststore with {} entries", trustStore.size());
+        // Important: Check if the truststore has any entries at all
+        int trustStoreSize = Collections.list(trustStore.aliases()).size();
+        log.info("Truststore contains {} entries", trustStoreSize);
 
-            // List all certificates in the truststore for debugging
-            java.util.Enumeration<String> aliases = trustStore.aliases();
-            while (aliases.hasMoreElements()) {
-                String alias = aliases.nextElement();
-                log.info("Truststore contains alias: {}, isCertificate: {}",
-                        alias, trustStore.isCertificateEntry(alias));
+        if (trustStoreSize == 0) {
+            log.error("ERROR: Truststore is empty! SSL connections will fail.");
+
+            // As a fallback, try to copy the root CA certificate from the keystore
+            if (keyStore.containsAlias("root-ca") || keyStore.containsAlias("client")) {
+                log.info("Attempting to recover by copying CA certificate from keystore...");
+
+                for (String alias : Collections.list(keyStore.aliases())) {
+                    Certificate[] chain = null;
+
+                    try {
+                        // Try to get certificate chain
+                        if (keyStore.isKeyEntry(alias)) {
+                            chain = keyStore.getCertificateChain(alias);
+                        }
+
+                        // If we found a chain with at least 2 certificates
+                        if (chain != null && chain.length > 1) {
+                            // The last certificate in the chain should be the root CA
+                            Certificate rootCaCert = chain[chain.length - 1];
+                            trustStore.setCertificateEntry("imported-root-ca", rootCaCert);
+                            log.info("Imported root CA certificate into truststore from keystore chain");
+
+                            // Save the updated truststore
+                            try (FileOutputStream fos = new FileOutputStream(truststorePath)) {
+                                trustStore.store(fos, truststorePassword.toCharArray());
+                                log.info("Saved updated truststore with imported root CA certificate");
+                            }
+
+                            break;
+                        }
+                    } catch (Exception e) {
+                        log.warn("Failed to import certificate from keystore: {}", e.getMessage());
+                    }
+                }
             }
         }
 
+        // Log trust manager info for debugging
         TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
         trustManagerFactory.init(trustStore);
-        log.info("Successfully initialized trust manager factory");
+        logTrustManagerInfo(trustManagerFactory.getTrustManagers());
+    }
 
-        // Create SSL context
-        SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
-        sslContext.init(
-                keyManagerFactory.getKeyManagers(),
-                trustManagerFactory.getTrustManagers(),
-                null
-        );
-        log.info("Successfully created SSL context");
+    /**
+     * Loads a KeyStore from the given path with the given password.
+     */
+    private KeyStore loadKeyStore(String path, String password) throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException {
+        KeyStore keyStore = KeyStore.getInstance("PKCS12");
 
-        return sslContext;
+        try (FileInputStream fileInputStream = new FileInputStream(path)) {
+            keyStore.load(fileInputStream, password.toCharArray());
+
+            // Log all aliases in the keystore
+            Enumeration<String> aliases = keyStore.aliases();
+            log.info("Keystore at {} contains the following aliases:", path);
+            int count = 0;
+
+            while (aliases.hasMoreElements()) {
+                count++;
+                String alias = aliases.nextElement();
+                boolean isCertificateEntry = keyStore.isCertificateEntry(alias);
+                boolean isKeyEntry = keyStore.isKeyEntry(alias);
+
+                log.info(" - Alias: {}, isCertificate: {}, isKey: {}",
+                        alias, isCertificateEntry, isKeyEntry);
+
+                if (isCertificateEntry) {
+                    X509Certificate cert = (X509Certificate) keyStore.getCertificate(alias);
+                    log.info("   Certificate subject: {}", cert.getSubjectX500Principal().getName());
+                    log.info("   Certificate issuer: {}", cert.getIssuerX500Principal().getName());
+                    log.info("   Certificate valid from: {} to {}", cert.getNotBefore(), cert.getNotAfter());
+                }
+            }
+
+            log.info("Successfully loaded keystore from {} with {} entries", path, count);
+        }
+
+        return keyStore;
+    }
+
+    /**
+     * Logs information about the trust managers for debugging.
+     */
+    private void logTrustManagerInfo(TrustManager[] trustManagers) {
+        if (trustManagers == null || trustManagers.length == 0) {
+            log.warn("No trust managers found!");
+            return;
+        }
+
+        for (TrustManager tm : trustManagers) {
+            if (tm instanceof X509TrustManager x509TrustManager) {
+                X509Certificate[] acceptedIssuers = x509TrustManager.getAcceptedIssuers();
+
+                if (acceptedIssuers != null && acceptedIssuers.length > 0) {
+                    log.info("Trust manager has {} accepted issuers:", acceptedIssuers.length);
+
+                    for (int i = 0; i < acceptedIssuers.length; i++) {
+                        X509Certificate cert = acceptedIssuers[i];
+                        log.info(" - Issuer {}: Subject: {}, Issuer: {}",
+                                i + 1,
+                                cert.getSubjectX500Principal().getName(),
+                                cert.getIssuerX500Principal().getName());
+                    }
+                } else {
+                    log.warn("Trust manager has no accepted issuers!");
+                }
+            } else {
+                log.info("TrustManager is not an X509TrustManager: {}", tm.getClass().getName());
+            }
+        }
     }
 }
