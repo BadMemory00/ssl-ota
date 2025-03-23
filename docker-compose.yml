@@ -1,0 +1,112 @@
+version: '3.8'
+
+services:
+  # Certificate Initializer
+  cert-initializer:
+    build:
+      context: .
+      dockerfile: cert-initializer/Dockerfile
+    container_name: cert-initializer
+    volumes:
+      - ./certs:/app/certs
+    environment:
+      - KEYSTORE_PASSWORD=changeit
+      - CERTS_DIR=/app/certs
+    networks:
+      - ota-network
+
+  # Certificate extractor
+  cert-extractor:
+    image: alpine:latest
+    container_name: cert-extractor
+    volumes:
+      - ./certs:/mosquitto/certs
+      - ./extract-certs.sh:/extract-certs.sh
+    command: sh -c "apk add --no-cache openssl && sh /extract-certs.sh && ls -la /mosquitto/certs"
+    depends_on:
+      - cert-initializer
+    networks:
+      - ota-network
+
+  # MQTT Broker
+  mqtt-broker:
+    image: eclipse-mosquitto:2.0.15
+    container_name: mqtt-broker
+    ports:
+      - "1883:1883"
+      - "8883:8883"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+      - ./certs:/mosquitto/certs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mosquitto_sub", "-t", "$$SYS/#", "-C", "1", "-i", "healthcheck", "-W", "5"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    depends_on:
+      - cert-initializer
+      - cert-extractor
+    networks:
+      - ota-network
+    command: ["mosquitto", "-c", "/mosquitto/config/mosquitto.conf", "-v"]
+
+  # OTA Update Server
+  server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    container_name: ota-server
+    ports:
+      - "8443:8443"
+    volumes:
+      - ./certs:/app/certs
+    environment:
+      - KEYSTORE_PATH=/app/certs/server.p12
+      - TRUSTSTORE_PATH=/app/certs/truststore.p12
+      - KEYSTORE_PASSWORD=changeit
+      - TRUSTSTORE_PASSWORD=changeit
+      - FIRMWARE_PATH=/app/firmware-update.txt
+      - MQTT_BROKER_URL=ssl://mqtt-broker:8883
+      - JAVA_TOOL_OPTIONS=-Djavax.net.debug=ssl:handshake
+    restart: unless-stopped
+    depends_on:
+      mqtt-broker:
+        condition: service_healthy
+    networks:
+      - ota-network
+
+  # OTA Update Client
+  client:
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+    container_name: ota-client
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./certs:/app/certs
+      - ./firmware-updates:/app/firmware-updates
+    environment:
+      - KEYSTORE_PATH=/app/certs/client.p12
+      - TRUSTSTORE_PATH=/app/certs/truststore.p12
+      - KEYSTORE_PASSWORD=changeit
+      - TRUSTSTORE_PASSWORD=changeit
+      - DEVICE_ID=device001
+      - CURRENT_VERSION=1.0.0
+      - OUTPUT_DIR=/app/firmware-updates
+      - MQTT_BROKER_URL=ssl://mqtt-broker:8883
+      - JAVA_TOOL_OPTIONS=-Djavax.net.debug=ssl:handshake
+    restart: unless-stopped
+    depends_on:
+      mqtt-broker:
+        condition: service_healthy
+    networks:
+      - ota-network
+
+networks:
+  ota-network:
+    driver: bridge

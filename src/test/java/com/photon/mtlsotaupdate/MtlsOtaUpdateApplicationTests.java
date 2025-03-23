@@ -1,0 +1,13 @@
+package com.photon.mtlsotaupdate;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class MtlsOtaUpdateApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}

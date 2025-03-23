@@ -1,0 +1,45 @@
+# Client application configuration
+server:
+  port: 8080
+
+# Spring configuration
+spring:
+  application:
+    name: ota-update-client
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+
+# Logging configuration
+logging:
+  level:
+    root: INFO
+    com.photon: DEBUG
+    org.springframework.web: INFO
+
+# Client SSL configuration for mTLS
+client:
+  ssl:
+    key-store: ${KEYSTORE_PATH:certs/client.p12}
+    key-store-password: ${KEYSTORE_PASSWORD:changeit}
+    key-store-type: PKCS12
+    key-alias: client
+    trust-store: ${TRUSTSTORE_PATH:certs/truststore.p12}
+    trust-store-password: ${TRUSTSTORE_PASSWORD:changeit}
+    trust-store-type: PKCS12
+  device:
+    id: ${DEVICE_ID:device001}
+  firmware:
+    version: ${CURRENT_VERSION:1.0.0}
+    output-dir: ${OUTPUT_DIR:firmware-updates}
+
+# MQTT configuration
+mqtt:
+  broker:
+    url: ${MQTT_BROKER_URL:ssl://localhost:8883}
+  client:
+    id: client-
+  request:
+    topic: ota/request
+  updates:
+    topic: ota/updates
