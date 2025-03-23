@@ -1,79 +1,25 @@
 version: '3.8'
 
 services:
-  # Certificate Initializer
-  cert-initializer:
-    build:
-      context: .
-      dockerfile: cert-initializer/Dockerfile
-    container_name: cert-initializer
-    volumes:
-      - ./certs:/app/certs
-    environment:
-      - KEYSTORE_PASSWORD=changeit
-      - CERTS_DIR=/app/certs
-    networks:
-      - ota-network
-
-  # Extract certs for Mosquitto
-  cert-extractor:
-    image: alpine:latest
-    container_name: cert-extractor
-    volumes:
-      - ./certs:/mosquitto/certs
-      - ./extract-certs.sh:/extract-certs.sh
-    command: >
-      sh -c "apk add --no-cache openssl openjdk17-jre &&
-             echo 'Waiting for certificate files to be generated...' &&
-             while [ ! -f /mosquitto/certs/truststore.p12 ] || [ ! -f /mosquitto/certs/server.p12 ] || [ ! -f /mosquitto/certs/client.p12 ]; do
-               echo 'Certificate files not ready, waiting...'
-               sleep 3
-             done &&
-             echo 'Certificate files found, proceeding with extraction...' &&
-             sh /extract-certs.sh"
-    depends_on:
-      cert-initializer:
-        condition: service_completed_successfully
-    networks:
-      - ota-network
-
-  # MQTT Broker with improved wait condition
+  # MQTT Broker
   mqtt-broker:
     image: eclipse-mosquitto:2.0.15
     container_name: mqtt-broker
     hostname: mqtt-broker
     ports:
       - "1883:1883"
-      - "8883:8883"
     volumes:
       - ./mosquitto/config:/mosquitto/config
       - ./mosquitto/data:/mosquitto/data
       - ./mosquitto/log:/mosquitto/log
-      - ./certs:/mosquitto/certs
     restart: unless-stopped
     command: >
-      sh -c "echo 'Waiting for certificate PEM files...' &&
-             until [ -f /mosquitto/certs/ca.pem ] && [ -f /mosquitto/certs/server.crt ] && [ -f /mosquitto/certs/server.key ]; do
-               echo 'PEM files not ready, waiting...'
-               sleep 3
-             done &&
-             echo 'PEM files found, checking contents:' &&
-             ls -la /mosquitto/certs &&
-             echo 'Starting Mosquitto broker...' &&
+      sh -c "echo 'listener 1883' > /mosquitto/config/mosquitto.conf &&
+             echo 'allow_anonymous true' >> /mosquitto/config/mosquitto.conf &&
              mosquitto -c /mosquitto/config/mosquitto.conf -v"
-    healthcheck:
-      test: ["CMD", "mosquitto_sub", "-t", "$$SYS/#", "-C", "1", "-i", "healthcheck", "-W", "5"]
-      interval: 10s
-      timeout: 60s
-      retries: 10
-      start_period: 60s
-    depends_on:
-      cert-extractor:
-        condition: service_completed_successfully
     networks:
       - ota-network
 
-  # OTA Update Server
   # OTA Update Server
   server:
     build:
@@ -83,49 +29,11 @@ services:
     hostname: ota-server
     ports:
       - "8443:8443"
-    volumes:
-      - ./certs:/app/certs
     environment:
-      - KEYSTORE_PATH=/app/certs/server.p12
-      - TRUSTSTORE_PATH=/app/certs/truststore.p12
-      - KEYSTORE_PASSWORD=changeit
-      - TRUSTSTORE_PASSWORD=changeit
-      - FIRMWARE_PATH=/app/firmware-update.txt
-      - MQTT_BROKER_URL=ssl://mqtt-broker:8883
-      - SERVER_SSL_ENABLED=false
+      - MQTT_BROKER_URL=tcp://mqtt-broker:1883
     restart: unless-stopped
     depends_on:
-      mqtt-broker:
-        condition: service_healthy
-    networks:
-      - ota-network
-
-  # OTA Update Client
-  client:
-    build:
-      context: .
-      dockerfile: client/Dockerfile
-    container_name: ota-client
-    hostname: ota-client
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./certs:/app/certs
-      - ./firmware-updates:/app/firmware-updates
-    environment:
-      - KEYSTORE_PATH=/app/certs/client.p12
-      - TRUSTSTORE_PATH=/app/certs/truststore.p12
-      - KEYSTORE_PASSWORD=changeit
-      - TRUSTSTORE_PASSWORD=changeit
-      - DEVICE_ID=device001
-      - CURRENT_VERSION=1.0.0
-      - OUTPUT_DIR=/app/firmware-updates
-      - MQTT_BROKER_URL=ssl://mqtt-broker:8883
-      - JAVA_TOOL_OPTIONS=-Djavax.net.ssl.trustStore=/app/certs/truststore.p12 -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.ssl.trustStoreType=PKCS12
-    restart: unless-stopped
-    depends_on:
-      mqtt-broker:
-        condition: service_healthy
+      - mqtt-broker
     networks:
       - ota-network
 

@@ -17,23 +17,19 @@ RUN mvn -B clean package -f server/pom.xml -DskipTests
 FROM openjdk:17-slim
 WORKDIR /app
 
-# Create directory for certificates
-RUN mkdir -p /app/certs /app/firmware-updates
-
-# Copy the JAR file and firmware update file
+# Copy the JAR and firmware
 COPY --from=build /app/server/target/*.jar /app/app.jar
 COPY server/src/main/resources/firmware-update.txt /app/firmware-update.txt
 
+# Create directories
+RUN mkdir -p /app/firmware-updates
+
 # Set environment variables
-ENV KEYSTORE_PATH="/app/certs/server.p12"
-ENV TRUSTSTORE_PATH="/app/certs/truststore.p12"
-ENV KEYSTORE_PASSWORD="changeit"
-ENV TRUSTSTORE_PASSWORD="changeit"
-ENV FIRMWARE_PATH="/app/firmware-update.txt"
-ENV MQTT_BROKER_URL="ssl://mqtt-broker:8883"
+ENV FIRMWARE_PATH=/app/firmware-update.txt
+ENV MQTT_BROKER_URL=tcp://mqtt-broker:1883
 
 # Expose the port
 EXPOSE 8443
 
-# Run the application with basic settings
+# Run with the simplest possible command
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]

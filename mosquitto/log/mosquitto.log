@@ -32318,3 +32318,764 @@
 1742736570: Client client-da16e6cbc57b4a47bb45f4afe3f8832c closed its connection.
 1742736571: mosquitto version 2.0.15 terminating
 1742736571: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1742736782: mosquitto version 2.0.15 starting
+1742736782: Config loaded from /mosquitto/config/mosquitto.conf.
+1742736782: Opening ipv4 listen socket on port 1883.
+1742736782: Opening ipv6 listen socket on port 1883.
+1742736782: Opening ipv4 listen socket on port 8883.
+1742736782: Opening ipv6 listen socket on port 8883.
+1742736782: mosquitto version 2.0.15 running
+1742736787: New connection from ::1:53826 on port 1883.
+1742736787: New client connected from ::1:53826 as healthcheck (p2, c1, k60).
+1742736787: No will message specified.
+1742736787: Sending CONNACK to healthcheck (0, 0)
+1742736787: Received SUBSCRIBE from healthcheck
+1742736787: 	$SYS/# (QoS 0)
+1742736787: healthcheck 0 $SYS/#
+1742736787: Sending SUBACK to healthcheck
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/version', ... (24 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/uptime', ... (9 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/total', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/inactive', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/disconnected', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/active', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/connected', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/expired', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/1min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/5min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/15min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/1min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/5min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/15min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/1min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/5min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/15min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/1min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/5min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/15min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/1min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/5min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/15min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/1min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/5min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/15min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/1min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/5min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/15min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/1min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/5min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/15min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/1min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/5min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/15min', ... (4 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/stored', ... (2 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/received', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/sent', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/count', ... (2 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/bytes', ... (3 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/subscriptions/count', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/shared_subscriptions/count', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/retained messages/count', ... (2 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/dropped', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/received', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/sent', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/received', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/sent', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/received', ... (1 bytes))
+1742736787: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/sent', ... (1 bytes))
+1742736787: Client healthcheck closed its connection.
+1742736790: New connection from 172.18.0.3:58756 on port 8883.
+1742736790: OpenSSL Error[0]: error:140360C7:SSL routines:ACCEPT_SR_CERT:peer did not return a certificate
+1742736790: Client <unknown> disconnected: Protocol error.
+1742736790: New connection from 172.18.0.3:58766 on port 8883.
+1742736790: OpenSSL Error[0]: error:140360C7:SSL routines:ACCEPT_SR_CERT:peer did not return a certificate
+1742736790: Client <unknown> disconnected: Protocol error.
+1742736790: New connection from 172.18.0.4:34230 on port 8883.
+1742736790: New client connected from 172.18.0.4:34230 as client-c6d52cc6078f40b8ab1dff5aeb513308 (p2, c1, k60).
+1742736790: No will message specified.
+1742736790: Sending CONNACK to client-c6d52cc6078f40b8ab1dff5aeb513308 (0, 0)
+1742736790: Received SUBSCRIBE from client-c6d52cc6078f40b8ab1dff5aeb513308
+1742736790: 	ota/updates (QoS 2)
+1742736790: client-c6d52cc6078f40b8ab1dff5aeb513308 2 ota/updates
+1742736790: Sending SUBACK to client-c6d52cc6078f40b8ab1dff5aeb513308
+1742736795: New connection from 172.18.0.3:58776 on port 8883.
+1742736795: OpenSSL Error[0]: error:140360C7:SSL routines:ACCEPT_SR_CERT:peer did not return a certificate
+1742736795: Client <unknown> disconnected: Protocol error.
+1742736795: New connection from 172.18.0.3:58790 on port 8883.
+1742736795: OpenSSL Error[0]: error:140360C7:SSL routines:ACCEPT_SR_CERT:peer did not return a certificate
+1742736795: Client <unknown> disconnected: Protocol error.
+1742736797: New connection from ::1:37732 on port 1883.
+1742736797: New client connected from ::1:37732 as healthcheck (p2, c1, k60).
+1742736797: No will message specified.
+1742736797: Sending CONNACK to healthcheck (0, 0)
+1742736797: Received SUBSCRIBE from healthcheck
+1742736797: 	$SYS/# (QoS 0)
+1742736797: healthcheck 0 $SYS/#
+1742736797: Sending SUBACK to healthcheck
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/version', ... (24 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/uptime', ... (10 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/total', ... (1 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/inactive', ... (1 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/disconnected', ... (1 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/active', ... (1 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/connected', ... (1 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/expired', ... (1 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/maximum', ... (1 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/1min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/5min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/15min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/1min', ... (5 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/5min', ... (5 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/15min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/1min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/5min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/15min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/1min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/5min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/15min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/1min', ... (5 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/5min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/15min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/1min', ... (5 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/5min', ... (5 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/15min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/1min', ... (7 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/5min', ... (6 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/15min', ... (6 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/1min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/5min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/15min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/1min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/5min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/15min', ... (4 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/stored', ... (2 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/received', ... (1 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/sent', ... (2 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/count', ... (2 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/bytes', ... (3 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/subscriptions/count', ... (1 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/shared_subscriptions/count', ... (1 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/retained messages/count', ... (2 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/dropped', ... (1 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/received', ... (1 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/sent', ... (2 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/received', ... (1 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/sent', ... (3 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/received', ... (3 bytes))
+1742736797: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/sent', ... (4 bytes))
+1742736797: Client healthcheck closed its connection.
+1742736805: New connection from 172.18.0.3:47930 on port 8883.
+1742736805: OpenSSL Error[0]: error:140360C7:SSL routines:ACCEPT_SR_CERT:peer did not return a certificate
+1742736805: Client <unknown> disconnected: Protocol error.
+1742736805: New connection from 172.18.0.3:47946 on port 8883.
+1742736805: OpenSSL Error[0]: error:140360C7:SSL routines:ACCEPT_SR_CERT:peer did not return a certificate
+1742736805: Client <unknown> disconnected: Protocol error.
+1742736807: New connection from ::1:47580 on port 1883.
+1742736807: New client connected from ::1:47580 as healthcheck (p2, c1, k60).
+1742736807: No will message specified.
+1742736807: Sending CONNACK to healthcheck (0, 0)
+1742736807: Received SUBSCRIBE from healthcheck
+1742736807: 	$SYS/# (QoS 0)
+1742736807: healthcheck 0 $SYS/#
+1742736807: Sending SUBACK to healthcheck
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/version', ... (24 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/uptime', ... (10 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/total', ... (1 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/inactive', ... (1 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/disconnected', ... (1 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/active', ... (1 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/connected', ... (1 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/expired', ... (1 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/maximum', ... (1 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/1min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/5min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/15min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/1min', ... (5 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/5min', ... (5 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/15min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/1min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/5min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/15min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/1min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/5min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/15min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/1min', ... (5 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/5min', ... (5 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/15min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/1min', ... (6 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/5min', ... (5 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/15min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/1min', ... (7 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/5min', ... (6 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/15min', ... (6 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/1min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/5min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/15min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/1min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/5min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/15min', ... (4 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/stored', ... (2 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/received', ... (1 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/sent', ... (3 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/count', ... (2 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/bytes', ... (3 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/subscriptions/count', ... (1 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/shared_subscriptions/count', ... (1 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/retained messages/count', ... (2 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/dropped', ... (1 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/received', ... (1 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/sent', ... (3 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/received', ... (1 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/sent', ... (3 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/received', ... (3 bytes))
+1742736807: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/sent', ... (4 bytes))
+1742736807: Client healthcheck closed its connection.
+1742736817: New connection from ::1:47080 on port 1883.
+1742736817: New client connected from ::1:47080 as healthcheck (p2, c1, k60).
+1742736817: No will message specified.
+1742736817: Sending CONNACK to healthcheck (0, 0)
+1742736817: Received SUBSCRIBE from healthcheck
+1742736817: 	$SYS/# (QoS 0)
+1742736817: healthcheck 0 $SYS/#
+1742736817: Sending SUBACK to healthcheck
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/version', ... (24 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/uptime', ... (10 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/total', ... (1 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/inactive', ... (1 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/disconnected', ... (1 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/active', ... (1 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/connected', ... (1 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/expired', ... (1 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/maximum', ... (1 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/1min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/5min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/15min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/1min', ... (6 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/5min', ... (5 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/15min', ... (5 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/1min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/5min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/15min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/1min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/5min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/15min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/1min', ... (6 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/5min', ... (5 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/15min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/1min', ... (6 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/5min', ... (5 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/15min', ... (5 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/1min', ... (7 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/5min', ... (7 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/15min', ... (6 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/1min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/5min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/15min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/1min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/5min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/15min', ... (4 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/stored', ... (2 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/received', ... (1 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/sent', ... (3 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/count', ... (2 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/bytes', ... (3 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/subscriptions/count', ... (1 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/shared_subscriptions/count', ... (1 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/retained messages/count', ... (2 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/dropped', ... (1 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/received', ... (1 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/sent', ... (3 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/received', ... (1 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/sent', ... (3 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/received', ... (3 bytes))
+1742736817: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/sent', ... (4 bytes))
+1742736817: Client healthcheck closed its connection.
+1742736820: New connection from 172.18.0.3:48092 on port 8883.
+1742736820: OpenSSL Error[0]: error:140360C7:SSL routines:ACCEPT_SR_CERT:peer did not return a certificate
+1742736820: Client <unknown> disconnected: Protocol error.
+1742736820: New connection from 172.18.0.3:48098 on port 8883.
+1742736820: OpenSSL Error[0]: error:140360C7:SSL routines:ACCEPT_SR_CERT:peer did not return a certificate
+1742736820: Client <unknown> disconnected: Protocol error.
+1742736827: New connection from ::1:60236 on port 1883.
+1742736827: New client connected from ::1:60236 as healthcheck (p2, c1, k60).
+1742736827: No will message specified.
+1742736827: Sending CONNACK to healthcheck (0, 0)
+1742736827: Received SUBSCRIBE from healthcheck
+1742736827: 	$SYS/# (QoS 0)
+1742736827: healthcheck 0 $SYS/#
+1742736827: Sending SUBACK to healthcheck
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/version', ... (24 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/uptime', ... (10 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/total', ... (1 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/inactive', ... (1 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/disconnected', ... (1 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/active', ... (1 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/connected', ... (1 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/expired', ... (1 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/maximum', ... (1 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/1min', ... (4 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/5min', ... (4 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/15min', ... (4 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/1min', ... (6 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/5min', ... (5 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/15min', ... (5 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/1min', ... (4 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/5min', ... (4 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/15min', ... (4 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/1min', ... (4 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/5min', ... (4 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/15min', ... (4 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/1min', ... (6 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/5min', ... (5 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/15min', ... (5 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/1min', ... (6 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/5min', ... (5 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/15min', ... (5 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/1min', ... (7 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/5min', ... (7 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/15min', ... (6 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/1min', ... (4 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/5min', ... (4 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/15min', ... (4 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/1min', ... (4 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/5min', ... (4 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/15min', ... (4 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/stored', ... (2 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/received', ... (2 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/sent', ... (3 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/count', ... (2 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/bytes', ... (3 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/subscriptions/count', ... (1 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/shared_subscriptions/count', ... (1 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/retained messages/count', ... (2 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/dropped', ... (1 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/received', ... (1 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/sent', ... (3 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/received', ... (1 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/sent', ... (3 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/received', ... (3 bytes))
+1742736827: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/sent', ... (4 bytes))
+1742736827: Client healthcheck closed its connection.
+1742736837: New connection from ::1:41376 on port 1883.
+1742736837: New client connected from ::1:41376 as healthcheck (p2, c1, k60).
+1742736837: No will message specified.
+1742736837: Sending CONNACK to healthcheck (0, 0)
+1742736837: Received SUBSCRIBE from healthcheck
+1742736837: 	$SYS/# (QoS 0)
+1742736837: healthcheck 0 $SYS/#
+1742736837: Sending SUBACK to healthcheck
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/version', ... (24 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/uptime', ... (10 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/total', ... (1 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/inactive', ... (1 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/disconnected', ... (1 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/active', ... (1 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/connected', ... (1 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/expired', ... (1 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/maximum', ... (1 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/1min', ... (4 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/5min', ... (4 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/15min', ... (4 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/1min', ... (6 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/5min', ... (5 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/15min', ... (5 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/1min', ... (4 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/5min', ... (4 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/dropped/15min', ... (4 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/1min', ... (4 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/5min', ... (4 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/received/15min', ... (4 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/1min', ... (6 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/5min', ... (5 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/15min', ... (5 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/1min', ... (6 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/5min', ... (5 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/15min', ... (5 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/1min', ... (7 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/5min', ... (7 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/15min', ... (6 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/1min', ... (4 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/5min', ... (4 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/15min', ... (4 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/1min', ... (4 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/5min', ... (4 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/15min', ... (4 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/stored', ... (2 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/received', ... (2 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/sent', ... (3 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/count', ... (2 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/bytes', ... (3 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/subscriptions/count', ... (1 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/shared_subscriptions/count', ... (1 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/retained messages/count', ... (2 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/dropped', ... (1 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/received', ... (1 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/sent', ... (3 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/received', ... (1 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/sent', ... (3 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/received', ... (3 bytes))
+1742736837: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/sent', ... (5 bytes))
+1742736837: Client healthcheck closed its connection.
+1742736840: New connection from 172.18.0.3:36260 on port 8883.
+1742736840: OpenSSL Error[0]: error:140360C7:SSL routines:ACCEPT_SR_CERT:peer did not return a certificate
+1742736840: Client <unknown> disconnected: Protocol error.
+1742736840: New connection from 172.18.0.3:36262 on port 8883.
+1742736840: OpenSSL Error[0]: error:140360C7:SSL routines:ACCEPT_SR_CERT:peer did not return a certificate
+1742736840: Client <unknown> disconnected: Protocol error.
+1742736847: New connection from ::1:42110 on port 1883.
+1742736847: New client connected from ::1:42110 as healthcheck (p2, c1, k60).
+1742736847: No will message specified.
+1742736847: Sending CONNACK to healthcheck (0, 0)
+1742736847: Received SUBSCRIBE from healthcheck
+1742736847: 	$SYS/# (QoS 0)
+1742736847: healthcheck 0 $SYS/#
+1742736847: Sending SUBACK to healthcheck
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/version', ... (24 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/uptime', ... (10 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/total', ... (1 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/active', ... (1 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/connected', ... (1 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/clients/maximum', ... (1 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/1min', ... (4 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/5min', ... (4 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/15min', ... (4 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/1min', ... (6 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/5min', ... (5 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/15min', ... (5 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/1min', ... (6 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/5min', ... (5 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/15min', ... (5 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/1min', ... (6 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/5min', ... (5 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/15min', ... (5 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/1min', ... (7 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/5min', ... (7 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/15min', ... (6 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/1min', ... (4 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/5min', ... (4 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/15min', ... (4 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/1min', ... (4 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/5min', ... (4 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/15min', ... (4 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/stored', ... (2 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/received', ... (2 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/sent', ... (3 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/count', ... (2 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/bytes', ... (3 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/subscriptions/count', ... (1 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/retained messages/count', ... (2 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/sent', ... (3 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/sent', ... (4 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/received', ... (3 bytes))
+1742736847: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/sent', ... (5 bytes))
+1742736847: Client healthcheck closed its connection.
+1742736850: Received PINGREQ from client-c6d52cc6078f40b8ab1dff5aeb513308
+1742736850: Sending PINGRESP to client-c6d52cc6078f40b8ab1dff5aeb513308
+1742736857: New connection from ::1:34922 on port 1883.
+1742736857: New client connected from ::1:34922 as healthcheck (p2, c1, k60).
+1742736857: No will message specified.
+1742736857: Sending CONNACK to healthcheck (0, 0)
+1742736857: Received SUBSCRIBE from healthcheck
+1742736857: 	$SYS/# (QoS 0)
+1742736857: healthcheck 0 $SYS/#
+1742736857: Sending SUBACK to healthcheck
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/version', ... (24 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/uptime', ... (10 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/1min', ... (4 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/5min', ... (4 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/15min', ... (4 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/1min', ... (6 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/5min', ... (5 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/15min', ... (5 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/1min', ... (6 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/5min', ... (5 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/15min', ... (5 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/1min', ... (6 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/5min', ... (5 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/15min', ... (5 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/1min', ... (7 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/5min', ... (7 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/15min', ... (6 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/1min', ... (4 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/5min', ... (4 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/15min', ... (4 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/1min', ... (4 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/5min', ... (4 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/15min', ... (4 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/received', ... (2 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/sent', ... (3 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/bytes', ... (3 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/sent', ... (3 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/sent', ... (4 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/received', ... (3 bytes))
+1742736857: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/sent', ... (5 bytes))
+1742736857: Client healthcheck closed its connection.
+1742736865: New connection from 172.18.0.3:45502 on port 8883.
+1742736865: OpenSSL Error[0]: error:140360C7:SSL routines:ACCEPT_SR_CERT:peer did not return a certificate
+1742736865: Client <unknown> disconnected: Protocol error.
+1742736865: New connection from 172.18.0.3:45512 on port 8883.
+1742736865: OpenSSL Error[0]: error:140360C7:SSL routines:ACCEPT_SR_CERT:peer did not return a certificate
+1742736865: Client <unknown> disconnected: Protocol error.
+1742736867: New connection from ::1:38430 on port 1883.
+1742736867: New client connected from ::1:38430 as healthcheck (p2, c1, k60).
+1742736867: No will message specified.
+1742736867: Sending CONNACK to healthcheck (0, 0)
+1742736867: Received SUBSCRIBE from healthcheck
+1742736867: 	$SYS/# (QoS 0)
+1742736867: healthcheck 0 $SYS/#
+1742736867: Sending SUBACK to healthcheck
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/version', ... (24 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/uptime', ... (10 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/1min', ... (5 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/5min', ... (4 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/15min', ... (4 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/1min', ... (6 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/5min', ... (5 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/15min', ... (5 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/1min', ... (6 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/5min', ... (5 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/15min', ... (5 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/1min', ... (6 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/5min', ... (5 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/15min', ... (5 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/1min', ... (7 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/5min', ... (7 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/15min', ... (6 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/1min', ... (4 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/5min', ... (4 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/15min', ... (4 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/1min', ... (4 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/5min', ... (4 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/15min', ... (4 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/stored', ... (2 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/received', ... (2 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/sent', ... (3 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/count', ... (2 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/bytes', ... (3 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/retained messages/count', ... (2 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/sent', ... (3 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/sent', ... (4 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/received', ... (3 bytes))
+1742736867: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/sent', ... (5 bytes))
+1742736867: Client healthcheck closed its connection.
+1742736877: New connection from ::1:42130 on port 1883.
+1742736877: New client connected from ::1:42130 as healthcheck (p2, c1, k60).
+1742736877: No will message specified.
+1742736877: Sending CONNACK to healthcheck (0, 0)
+1742736877: Received SUBSCRIBE from healthcheck
+1742736877: 	$SYS/# (QoS 0)
+1742736877: healthcheck 0 $SYS/#
+1742736877: Sending SUBACK to healthcheck
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/version', ... (24 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/uptime', ... (10 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/1min', ... (5 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/5min', ... (4 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/15min', ... (4 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/1min', ... (6 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/5min', ... (5 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/15min', ... (5 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/1min', ... (6 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/5min', ... (5 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/15min', ... (5 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/1min', ... (6 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/5min', ... (5 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/15min', ... (5 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/1min', ... (7 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/5min', ... (7 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/15min', ... (7 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/1min', ... (5 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/5min', ... (4 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/15min', ... (4 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/1min', ... (4 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/5min', ... (4 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/15min', ... (4 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/stored', ... (2 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/received', ... (2 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/sent', ... (3 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/count', ... (2 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/bytes', ... (3 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/retained messages/count', ... (2 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/sent', ... (3 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/sent', ... (4 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/received', ... (3 bytes))
+1742736877: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/sent', ... (5 bytes))
+1742736877: Client healthcheck closed its connection.
+1742736887: New connection from ::1:56698 on port 1883.
+1742736887: New client connected from ::1:56698 as healthcheck (p2, c1, k60).
+1742736887: No will message specified.
+1742736887: Sending CONNACK to healthcheck (0, 0)
+1742736887: Received SUBSCRIBE from healthcheck
+1742736887: 	$SYS/# (QoS 0)
+1742736887: healthcheck 0 $SYS/#
+1742736887: Sending SUBACK to healthcheck
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/version', ... (24 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/uptime', ... (10 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/1min', ... (5 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/5min', ... (4 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/15min', ... (4 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/1min', ... (6 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/5min', ... (5 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/15min', ... (5 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/1min', ... (6 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/5min', ... (5 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/15min', ... (5 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/1min', ... (6 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/5min', ... (5 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/15min', ... (5 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/1min', ... (7 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/5min', ... (7 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/15min', ... (7 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/1min', ... (5 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/5min', ... (4 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/15min', ... (4 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/1min', ... (4 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/5min', ... (4 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/15min', ... (4 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/stored', ... (2 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/received', ... (2 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/sent', ... (3 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/count', ... (2 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/bytes', ... (3 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/retained messages/count', ... (2 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/sent', ... (3 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/sent', ... (4 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/received', ... (3 bytes))
+1742736887: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/sent', ... (5 bytes))
+1742736888: Client healthcheck closed its connection.
+1742736895: New connection from 172.18.0.3:60708 on port 8883.
+1742736895: OpenSSL Error[0]: error:140360C7:SSL routines:ACCEPT_SR_CERT:peer did not return a certificate
+1742736895: Client <unknown> disconnected: Protocol error.
+1742736895: New connection from 172.18.0.3:60714 on port 8883.
+1742736895: OpenSSL Error[0]: error:140360C7:SSL routines:ACCEPT_SR_CERT:peer did not return a certificate
+1742736895: Client <unknown> disconnected: Protocol error.
+1742736898: New connection from ::1:57360 on port 1883.
+1742736898: New client connected from ::1:57360 as healthcheck (p2, c1, k60).
+1742736898: No will message specified.
+1742736898: Sending CONNACK to healthcheck (0, 0)
+1742736898: Received SUBSCRIBE from healthcheck
+1742736898: 	$SYS/# (QoS 0)
+1742736898: healthcheck 0 $SYS/#
+1742736898: Sending SUBACK to healthcheck
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/version', ... (24 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/uptime', ... (11 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/1min', ... (5 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/5min', ... (4 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/15min', ... (4 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/1min', ... (6 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/5min', ... (5 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/15min', ... (5 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/1min', ... (6 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/5min', ... (5 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/15min', ... (5 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/1min', ... (6 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/5min', ... (5 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/15min', ... (5 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/1min', ... (7 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/5min', ... (7 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/15min', ... (7 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/1min', ... (4 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/5min', ... (4 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/15min', ... (4 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/1min', ... (4 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/5min', ... (4 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/15min', ... (4 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/stored', ... (2 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/received', ... (2 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/sent', ... (3 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/count', ... (2 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/bytes', ... (3 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/retained messages/count', ... (2 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/sent', ... (3 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/sent', ... (4 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/received', ... (3 bytes))
+1742736898: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/sent', ... (5 bytes))
+1742736898: Client healthcheck closed its connection.
+1742736908: New connection from ::1:54292 on port 1883.
+1742736908: New client connected from ::1:54292 as healthcheck (p2, c1, k60).
+1742736908: No will message specified.
+1742736908: Sending CONNACK to healthcheck (0, 0)
+1742736908: Received SUBSCRIBE from healthcheck
+1742736908: 	$SYS/# (QoS 0)
+1742736908: healthcheck 0 $SYS/#
+1742736908: Sending SUBACK to healthcheck
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/version', ... (24 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/uptime', ... (11 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/1min', ... (5 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/5min', ... (4 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/15min', ... (4 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/1min', ... (6 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/5min', ... (5 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/15min', ... (5 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/1min', ... (6 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/5min', ... (5 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/15min', ... (5 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/1min', ... (6 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/5min', ... (5 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/15min', ... (5 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/1min', ... (7 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/5min', ... (7 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/15min', ... (7 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/1min', ... (5 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/5min', ... (4 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/15min', ... (4 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/1min', ... (4 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/5min', ... (4 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/15min', ... (4 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/stored', ... (2 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/received', ... (2 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/sent', ... (3 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/count', ... (2 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/bytes', ... (3 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/retained messages/count', ... (2 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/sent', ... (3 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/sent', ... (4 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/received', ... (3 bytes))
+1742736908: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/sent', ... (5 bytes))
+1742736908: Client healthcheck closed its connection.
+1742736910: Received PINGREQ from client-c6d52cc6078f40b8ab1dff5aeb513308
+1742736910: Sending PINGRESP to client-c6d52cc6078f40b8ab1dff5aeb513308
+1742736917: Client client-c6d52cc6078f40b8ab1dff5aeb513308 closed its connection.
+1742736918: New connection from ::1:54464 on port 1883.
+1742736918: New client connected from ::1:54464 as healthcheck (p2, c1, k60).
+1742736918: No will message specified.
+1742736918: Sending CONNACK to healthcheck (0, 0)
+1742736918: Received SUBSCRIBE from healthcheck
+1742736918: 	$SYS/# (QoS 0)
+1742736918: healthcheck 0 $SYS/#
+1742736918: Sending SUBACK to healthcheck
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/version', ... (24 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/uptime', ... (11 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/1min', ... (5 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/5min', ... (4 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/received/15min', ... (4 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/1min', ... (6 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/5min', ... (5 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/messages/sent/15min', ... (5 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/1min', ... (6 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/5min', ... (5 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/publish/sent/15min', ... (5 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/1min', ... (6 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/5min', ... (5 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/received/15min', ... (5 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/1min', ... (7 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/5min', ... (7 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/bytes/sent/15min', ... (7 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/1min', ... (4 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/5min', ... (4 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/sockets/15min', ... (4 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/1min', ... (4 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/5min', ... (4 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/load/connections/15min', ... (4 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/stored', ... (2 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/received', ... (2 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/messages/sent', ... (3 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/count', ... (2 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/store/messages/bytes', ... (3 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/retained messages/count', ... (2 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/messages/sent', ... (3 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/publish/bytes/sent', ... (4 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/received', ... (3 bytes))
+1742736918: Sending PUBLISH to healthcheck (d0, q0, r1, m0, '$SYS/broker/bytes/sent', ... (5 bytes))
+1742736918: Client healthcheck closed its connection.
+1742736927: mosquitto version 2.0.15 terminating
+1742736927: Saving in-memory database to /mosquitto/data//mosquitto.db.

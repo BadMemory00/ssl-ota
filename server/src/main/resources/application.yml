@@ -1,30 +1,16 @@
-# Server application configuration
+# Server configuration
 server:
   port: 8443
-  ssl:
-    enabled: false  # Must be false for our custom config to work
-    key-store: ${KEYSTORE_PATH:certs/server.p12}
-    key-store-password: ${KEYSTORE_PASSWORD:changeit}
-    key-store-type: PKCS12
-    key-alias: server
-    trust-store: ${TRUSTSTORE_PATH:certs/truststore.p12}
-    trust-store-password: ${TRUSTSTORE_PASSWORD:changeit}
-    trust-store-type: PKCS12
 
-# Spring configuration
+# Spring basic configuration
 spring:
   application:
     name: ota-update-server
-  jackson:
-    serialization:
-      FAIL_ON_EMPTY_BEANS: false
 
 # MQTT configuration
 mqtt:
   broker:
-    url: ssl://mqtt-broker:8883
-  client:
-    id: server-
+    url: tcp://mqtt-broker:1883
   request:
     topic: ota/request
   updates:
@@ -33,4 +19,4 @@ mqtt:
 # OTA update configuration
 ota:
   firmware:
-    path: ${FIRMWARE_PATH:server/src/main/resources/firmware-update.txt}
+    path: /app/firmware-update.txt
