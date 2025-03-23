@@ -74,6 +74,7 @@ services:
       - ota-network
 
   # OTA Update Server
+  # OTA Update Server
   server:
     build:
       context: .
@@ -91,13 +92,7 @@ services:
       - TRUSTSTORE_PASSWORD=changeit
       - FIRMWARE_PATH=/app/firmware-update.txt
       - MQTT_BROKER_URL=ssl://mqtt-broker:8883
-      - SERVER_SSL_ENABLED=true
-      - SERVER_SSL_CLIENT_AUTH=need
-      - SERVER_SSL_KEY_STORE=/app/certs/server.p12
-      - SERVER_SSL_KEY_STORE_PASSWORD=changeit
-      - SERVER_SSL_TRUST_STORE=/app/certs/truststore.p12
-      - SERVER_SSL_TRUST_STORE_PASSWORD=changeit
-      - JAVA_TOOL_OPTIONS=-Djavax.net.ssl.trustStore=/app/certs/truststore.p12 -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.ssl.trustStoreType=PKCS12
+      - SERVER_SSL_ENABLED=false
     restart: unless-stopped
     depends_on:
       mqtt-broker:
